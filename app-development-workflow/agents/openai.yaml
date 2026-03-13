@@ -1,0 +1,4 @@
+﻿interface:
+  display_name: "App Development Workflow"
+  short_description: "Type 你好 to enter gated 6-phase app delivery"
+  default_prompt: "When user says 你好, route into $app-development-workflow startup, then branch by 新建 or 优化."

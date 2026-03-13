@@ -1,0 +1,103 @@
+:root {
+  --bg: #f4f8fc;
+  --bg-strong: #dbe8f4;
+  --card: #ffffff;
+  --line: #d6e0eb;
+  --text: #12263a;
+  --muted: #4b6278;
+  --done: #0f7b6c;
+  --next: #0f5dbf;
+  --pending: #708090;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 0% 0%, var(--bg-strong), transparent 34%),
+    var(--bg);
+}
+
+.app-shell {
+  max-width: 840px;
+  margin: 56px auto;
+  padding: 0 20px 36px;
+  display: grid;
+  gap: 22px;
+}
+
+.hero,
+.panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 24px 26px;
+  box-shadow: 0 10px 28px rgba(13, 30, 50, 0.09);
+}
+
+.kicker {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f5dbf;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 8px 0 10px;
+  font-size: clamp(28px, 4vw, 42px);
+  line-height: 1.1;
+}
+
+h2 {
+  margin: 0 0 14px;
+  font-size: 20px;
+}
+
+p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 14px;
+  color: var(--text);
+  background: #f9fbfe;
+}
+
+li em {
+  font-style: normal;
+  font-weight: 600;
+}
+
+.status-done em {
+  color: var(--done);
+}
+
+.status-next em {
+  color: var(--next);
+}
+
+.status-pending em {
+  color: var(--pending);
+}

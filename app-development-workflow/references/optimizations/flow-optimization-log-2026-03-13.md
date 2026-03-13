@@ -1,0 +1,12 @@
+﻿# Flow Optimization Log
+
+Path base:
+1. This file lives under `SKILL_ROOT/references/optimizations/`.
+2. Append one row after each approved phase and before entering the next phase.
+
+| 阶段 | 问题现象 | 建议改进 | 优先级 | 是否采纳 | 来源 |
+|---|---|---|---|---|---|
+| 1 | 需求签核阶段对来源优先级发生连续两次调整（先取消权威排序、再完全删除），导致二次返工 | 在 Phase 1 的来源治理提问中固定加入“是否完全排除某类来源”的显式确认项，签核前做一次来源清单复述确认 | 中 | 待定 | user suggestion |
+| 2 | 阶段 2 评审后发现网页端开发 skill 缺口，导致计划二次修订 | 在 Phase 2 Step 2 完成后增加“已安装 skill 清单核对”关卡，未覆盖前端/测试关键能力时不得进入阶段签核 | 高 | 待定 | phase gate |
+| 3 | Task 1 初版骨架在前后端架构成熟度上不够明确，评审后发生架构补强 | 在 Phase 3 Task 1 固化“架构成熟度基线检查”：前端必须明确框架与分层；后端必须明确模块边界与集成层，不满足则不得提交人工验收 | 高 | 待定 | user suggestion |
+| 3 | 人工确认通过后缺少统一的提交动作约束，可能导致阶段产物与代码状态不一致 | 固化规则：每次人工确认“通过”后必须立即执行 `git add` + `git commit`，并在执行记录中附提交哈希 | 高 | 待定 | user suggestion |
