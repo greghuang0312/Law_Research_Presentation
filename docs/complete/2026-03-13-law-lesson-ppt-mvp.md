@@ -51,6 +51,12 @@
 | 2026-03-13T17:07:53+08:00 | agent | `powershell -ExecutionPolicy Bypass -File .\scripts\start-dev.ps1` | 0 | `logs/task1-start-dev.log` | `PASS` |
 | 2026-03-13T17:07:53+08:00 | agent | `powershell -ExecutionPolicy Bypass -File .\scripts\stop-dev.ps1` | 0 | `logs/task1-stop-dev.log` | `PASS` |
 
+### Commit Record
+
+| committed_at | command | commit_hash | note |
+|---|---|---|---|
+| 2026-03-13T17:09:48+08:00 | `powershell -ExecutionPolicy Bypass -File .\scripts\commit-after-approval.ps1 -Message "chore: checkpoint after phase3 task1 approval"` | `66d1376` | Task 1 人工通过后的统一 checkpoint 提交 |
+
 ### Notes
 
 - 在当前执行环境中，`start-dev.ps1` 返回成功且健康检查通过；后台进程在命令结束后不持续驻留，`stop-dev.ps1` 返回“PID file exists but process is not running.”。该行为不影响 Task 1 的结构和接口验收。
