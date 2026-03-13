@@ -63,10 +63,49 @@
 - 人工复核阶段提出“前端技术栈需明确为 React + Vite + TypeScript”，已完成在审修订并合入当前任务结果。
 - 人工复核阶段进一步提出“前后端采用成熟架构”，已完成前后端分层目录与入口拆分。
 
+## Task 2: Compliance Baseline and Source Access Policy
+
+### Scope
+
+- 实现站点级来源策略配置（allow/deny/manual-only）
+- 落地裁判文书网 `manual-only` 策略
+- 实现请求限流、重试、访问日志
+
+### Implementation Summary
+
+- 新增来源策略配置：
+  - `backend/config/source-policy.json`
+  - 默认策略 `deny`
+  - 裁判文书网 `manual-only`
+  - `gov.cn` 白名单 `allow`
+- 新增策略判定服务：`backend/app/modules/retrieval/source-policy-service.mjs`
+- 新增限流服务：`backend/app/modules/retrieval/rate-limit-service.mjs`
+- 新增重试服务：`backend/app/modules/retrieval/retry-service.mjs`
+- 新增访问日志基础设施：`backend/app/infrastructure/logging/source-access-log.mjs`
+- 新增来源访问检查服务：`backend/app/modules/retrieval/source-access-check-service.mjs`
+- API 路由新增：`GET /api/source-access-check?url=<target>&mode=auto|manual`
+  - `manual-only` 自动模式下返回 403
+  - 命中限流返回 429
+  - 每次请求写入 `logs/source-access.log`
+
+### Verification Evidence
+
+| tested_at | tested_by | command | exit_code | evidence_path | verification_status |
+|---|---|---|---|---|---|
+| 2026-03-13T17:31:16+08:00 | agent | `node tests/task2-compliance.check.mjs` | 0 | `logs/task2-compliance-check.log` | `PASS` |
+| 2026-03-13T17:31:16+08:00 | agent | `rg -n "policy_manual_only|policy_allow|wenshu\\.court\\.gov\\.cn|www\\.gov\\.cn" logs/source-access.log` | 0 | `logs/task2-access-log-assert.log` | `PASS` |
+| 2026-03-13T17:43:34+08:00 | agent | `rg -n "frontend-design|ui-design|ui-ux-pro-max" app-development-workflow/references/stack/STACK-SKILL-MAP.md` | 0 | `logs/task2-design-skill-baseline.log` | `PASS` |
+
+### Notes
+
+- 人工复核追加要求：`find-skills` 同时覆盖工程类与设计类。
+- 根据用户确认，设计类 skill 已收敛为仅 `frontend-design`；`ui-design` 与 `ui-ux-pro-max` 已从项目有效映射中移除。
+- `STACK-SKILL-MAP` 与计划文档已同步更新。
+
 # Final Notes
 
-- 当前仅完成 `Task 1: Initialize Project`。
-- 下一个任务为 `Task 2: Compliance Baseline and Source Access Policy`，待人工确认后执行。
+- 当前已完成 `Task 1: Initialize Project` 与 `Task 2: Compliance Baseline and Source Access Policy`。
+- 下一个任务为 `Task 3: LegalOne-R1 Adapter with License Gate`，待人工确认后执行。
 
 # approval_record
 
@@ -75,6 +114,12 @@
 - approved_by: Greg Huang
 - approved_at: 2026-03-13T17:09:48+08:00
 - comment: 用户回复“通过现阶段”，Task 1 人工签核通过
+
+- phase: 3-task-2
+- status: PENDING_MANUAL
+- approved_by: TBD
+- approved_at: TBD
+- comment: 待用户人工确认 Task 2 结果（通过/不通过）
 
 # rejection_record
 
@@ -89,3 +134,9 @@
 - requested_change: 前后端按项目特点采用成熟架构方案
 - action_taken: 已将后端重构为 `api/modules/integrations/infrastructure` 分层骨架，并将前端补齐 `pages/components/features/services` 分层
 - retest_or_recheck: `node tests/task1-initialize.check.mjs` 复测通过，待用户重新签核
+
+- phase: 3-task-2
+- issue_type: documentation / process
+- requested_change: `find-skills` 需要同时覆盖工程类与设计类，并立即完成检索安装
+- action_taken: 已完成设计类能力收敛，当前仅保留 `frontend-design` 作为项目有效设计 skill，并同步更新 `STACK-SKILL-MAP`
+- retest_or_recheck: 技能映射已更新，待用户确认后继续 Task 2 签核

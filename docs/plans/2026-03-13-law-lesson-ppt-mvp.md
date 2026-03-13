@@ -6,7 +6,7 @@
 
 **Architecture:** 采用前后端分层与流水线模块化。前端负责参数输入与结果预览，后端负责任务编排、来源检索、内容归纳与 PPT 生成，导出前由引用与质量闸门做合规和可追溯校验。
 
-**Tech Stack:** web-dev, playwright, legal-source-search, content-extraction-and-summarization, citation-traceability, ppt-generation, llm-integration-legalone-r1, prompt-parameterization
+**Tech Stack:** web-dev, frontend-design, playwright, legal-source-search, content-extraction-and-summarization, citation-traceability, ppt-generation, llm-integration-legalone-r1, prompt-parameterization
 
 ---
 
@@ -218,6 +218,14 @@
 - 上述技能已同步写入 `STACK-SKILL-MAP.md`，用于 Phase 3 任务加载。
 - 注意：安装输出提示 `playwright` 有安全风险告警，Phase 3 使用前需先审查 skill 内容与权限边界。
 
+## Skill Discovery Update (Phase 3 Revision)
+
+- 已按“工程类 + 设计类”双通道完成前端能力核对：
+  - 工程类：`web-dev`、`playwright`
+  - 设计类：`frontend-design`（唯一启用）
+- 根据用户确认，`ui-design` 与 `ui-ux-pro-max` 已从本项目有效 skill 映射中移除。
+- `STACK-SKILL-MAP.md` 已同步更新。
+
 ## Post-Phase TODO (User Confirmed)
 
 - [ ] Phase 3 开始前固定 LegalOne-R1 具体版本，并以对应仓库 LICENSE 完成一次合规复核后再进入生成链路开发。
@@ -237,3 +245,4 @@
 - requested_change: 人工签批用户名改为 Greg Huang；网页端开发缺少相应 skills
 - action_taken: 审批用户名已统一为 Greg Huang；已通过 find-skills 检索并安装 `web-dev` 与 `playwright`，并更新任务技能映射
 - retest_or_recheck: 计划与 STACK-SKILL-MAP 已更新，待用户重新签核
+

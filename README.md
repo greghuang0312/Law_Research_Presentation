@@ -9,6 +9,7 @@
 - 本地服务包含：
   - `GET /health` 健康检查
   - `GET /` MVP 首页
+  - `GET /api/source-access-check` 来源策略与合规校验接口
 
 ## 项目结构
 
@@ -40,6 +41,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\stop-dev.ps1
 
 ```powershell
 node .\tests\task1-initialize.check.mjs
+node .\tests\task2-compliance.check.mjs
 ```
 
 ## 人工通过后的统一提交

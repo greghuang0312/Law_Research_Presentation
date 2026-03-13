@@ -1,0 +1,24 @@
+{
+  "version": "2026-03-13",
+  "defaultMode": "deny",
+  "rules": [
+    {
+      "id": "wenshu-manual-only",
+      "host": "wenshu.court.gov.cn",
+      "mode": "manual-only",
+      "reason": "robots_disallow_and_waf"
+    },
+    {
+      "id": "gov-cn-root-allow",
+      "host": "www.gov.cn",
+      "mode": "allow",
+      "reason": "whitelisted_after_terms_review"
+    },
+    {
+      "id": "gov-cn-suffix-allow",
+      "hostSuffix": ".gov.cn",
+      "mode": "allow",
+      "reason": "whitelisted_after_terms_review"
+    }
+  ]
+}
