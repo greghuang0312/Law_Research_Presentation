@@ -1,6 +1,7 @@
 import http from "node:http";
 import { pathToFileURL } from "node:url";
 import { createRequestHandler } from "./app/api/router.mjs";
+import { ensureLegalOneRuntimeReady } from "./app/integrations/legalone_r1/legalone-r1-config-service.mjs";
 
 export function createServer({ rootDir = process.cwd() } = {}) {
   const requestHandler = createRequestHandler({ rootDir });
@@ -12,6 +13,7 @@ export async function startServer({
   host = process.env.HOST ?? "127.0.0.1",
   rootDir = process.cwd(),
 } = {}) {
+  await ensureLegalOneRuntimeReady({ rootDir });
   const server = createServer({ rootDir });
 
   await new Promise((resolve, reject) => {

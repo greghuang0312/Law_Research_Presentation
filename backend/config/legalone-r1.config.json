@@ -1,0 +1,11 @@
+{
+  "strict_mode": true,
+  "provider": "legalone-r1",
+  "model_name": "LegalOne-R1",
+  "model_version": "2026.03.14",
+  "model_commit": "legalone-r1-commit-20260314",
+  "prompt_template_version": "2026-03-14",
+  "transport": {
+    "mode": "dry-run"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "review_status": "pending",
+  "reviewed_at": "",
+  "reviewer": "",
+  "approved_model_name": "LegalOne-R1",
+  "approved_model_version": "",
+  "approved_model_commit": "",
+  "license_type": "",
+  "usage_scope": "LegalOne-R1 only processes lawfully obtained text.",
+  "evidence": [],
+  "notes": "Update review_status to approved only after completing legal and license review."
+}
