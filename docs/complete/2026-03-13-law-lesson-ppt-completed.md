@@ -265,6 +265,50 @@
 - Task 3 has been implemented and verified; current status is `PENDING_MANUAL`
 - Next checkpoint is the manual sign-off for `Task 3: LegalOne-R1 Adapter with License Gate`
 - Task 5 manual sign-off approved
+## Task 6: PPT Composition Pipeline
+
+### Scope
+
+- Build a deterministic `PPTDeck` from Task 5 outline output
+- Export a minimal `.pptx` package into `outputs/ppt/`
+- Persist a local generation record with parameters, source list, and version metadata
+
+### Implementation Summary
+
+- Added Task 6 export test:
+  - `tests/task6-ppt-composition.check.mjs`
+- Added generation storage and export modules:
+  - `backend/app/infrastructure/storage/generation-record-repository.mjs`
+  - `backend/app/modules/generation/ppt-composition-service.mjs`
+  - `backend/app/modules/generation/pptx-writer.mjs`
+- Updated `backend/app/api/router.mjs`
+  - Added `POST /api/ppt/export`
+  - Reused Task 5 outline parameters plus `template`
+- Updated `backend/app/modules/generation/README.md`
+
+### Verification Evidence
+
+| tested_at | tested_by | command | exit_code | evidence_path | verification_status |
+|---|---|---|---|---|---|
+| 2026-03-14T16:00:00+08:00 | agent | `node tests/task6-ppt-composition.check.mjs` | 0 | `interactive run` | `PASS` |
+| 2026-03-14T16:00:00+08:00 | agent | `node tests/task5-content-curation.check.mjs` | 0 | `interactive run` | `PASS` |
+| 2026-03-14T16:00:00+08:00 | agent | `node tests/task4-source-retrieval.check.mjs` | 0 | `interactive run` | `PASS` |
+| 2026-03-14T16:00:00+08:00 | agent | `node tests/task3-legalone.check.mjs` | 0 | `interactive run` | `PASS` |
+| 2026-03-14T16:00:00+08:00 | agent | `node tests/task2-compliance.check.mjs` | 0 | `interactive run` | `PASS` |
+
+### Notes
+
+- Current status: `PASS(manual)`
+- Exported deck includes per-slide citation text plus a final `Source Index` slide
+- `.pptx` is generated without external dependencies by writing a minimal Open XML package directly
+- Parallel regression against Task 4 initially hit a transient SQLite file lock; rerunning serially passed without code changes
+
+# Final Notes
+
+- Task 1 through Task 5 have manual sign-off recorded.
+- Task 6 has manual sign-off recorded.
+- Next checkpoint is `Task 7: Citation and Quality Gate`.
+- Continue Phase 3 execution against the approved plan.
 # approval_record
 
 # approval_record
@@ -282,6 +326,13 @@
 - approved_at: 2026-03-14T16:37:18.5946999+08:00
 - approval_comment: user replied `通过`, Task 5 manual sign-off approved
 - comment: Task 5 人工签核通过
+
+- phase: 3-task-6
+- status: PASS(manual)
+- approved_by: Greg Huang
+- approved_at: 2026-03-14T17:00:00+08:00
+- approval_comment: user replied `通过`, Task 6 manual sign-off approved
+- comment: Task 6 人工签核通过
 
 # rejection_record
 
