@@ -19,6 +19,7 @@
 | 任务序号 | 任务名称 | 签核状态 | 定位章节 |
 |---|---|---|---|
 | 1 | Initialize Project | `PASS(manual)` | [Task 1: Initialize Project](#task-1-initialize-project) |
+| 2 | Compliance Baseline and Source Access Policy | `PASS(manual)` | [Task 2: Compliance Baseline and Source Access Policy](#task-2-compliance-baseline-and-source-access-policy) |
 
 # Task Execution Record
 
@@ -135,9 +136,10 @@
 - comment: 用户回复“通过现阶段”，Task 1 人工签核通过
 
 - phase: 3-task-2
-- status: PENDING_MANUAL
-- approved_by: TBD
-- approved_at: TBD
+- status: PASS(manual)
+- approved_by: Greg Huang
+- approved_at: 2026-03-14T15:43:47+08:00
+- approval_comment: user replied `通过`, Task 2 manual sign-off approved
 - comment: 待用户人工确认 Task 2 结果（通过/不通过）
 
 # rejection_record
