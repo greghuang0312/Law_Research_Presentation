@@ -9,6 +9,7 @@
 - [Task 1: Initialize Project](#task-1-initialize-project)
 - [Task 2: Compliance Baseline and Source Access Policy](#task-2-compliance-baseline-and-source-access-policy)
 - [Task 3: LegalOne-R1 Adapter with License Gate](#task-3-legalone-r1-adapter-with-license-gate)
+- [Task 4: Source Retrieval and Normalization](#task-4-source-retrieval-and-normalization)
 - [Final Notes](#final-notes)
 - [approval_record](#approval_record)
 - [rejection_record](#rejection_record)
@@ -22,6 +23,7 @@
 | 1 | Initialize Project | `PASS(manual)` | [Task 1: Initialize Project](#task-1-initialize-project) |
 | 2 | Compliance Baseline and Source Access Policy | `PASS(manual)` | [Task 2: Compliance Baseline and Source Access Policy](#task-2-compliance-baseline-and-source-access-policy) |
 | 3 | LegalOne-R1 Adapter with License Gate | `PASS(manual)` | [Task 3: LegalOne-R1 Adapter with License Gate](#task-3-legalone-r1-adapter-with-license-gate) |
+| 4 | Source Retrieval and Normalization | `PASS(manual)` | [Task 4: Source Retrieval and Normalization](#task-4-source-retrieval-and-normalization) |
 
 # Task Execution Record
 
@@ -170,6 +172,48 @@
 - 当前 `docs/compliance/legalone-r1-license-review.json` 默认状态为 `pending`，用于在真实接入前强制阻断生成链路
 - 适配层当前输出为 `dry-run`，用于先验证版本固定、来源标签和许可证门禁；真实模型传输可在后续任务接入
 
+## Task 4: Source Retrieval and Normalization
+
+### Scope
+
+- 实现检索请求编排与结果标准化
+- 输出 `SourceItem[]`，包含 URL、标题、日期、来源类型、可信度和追溯字段
+- 使用 SQLite 作为主存储，并支持 `fixture` / `live` / `hybrid` 检索模式
+
+### Implementation Summary
+
+- 新增 Task 4 设计与实现文档：
+  - `docs/plans/2026-03-14-task4-source-retrieval-design.md`
+  - `docs/plans/2026-03-14-task4-source-retrieval-implementation.md`
+- 新增 SQLite 存储仓库：`backend/app/infrastructure/storage/retrieval-repository.mjs`
+- 新增标准化模块：`backend/app/modules/retrieval/source-normalizer.mjs`
+- 新增本地夹具适配器：`backend/app/integrations/sources/local-fixture-adapter.mjs`
+- 新增 `gov.cn` 白名单在线检索适配器：`backend/app/integrations/sources/gov-source-adapter.mjs`
+- 新增检索编排器：`backend/app/modules/retrieval/retrieval-orchestrator.mjs`
+- 新增 API：`POST /api/retrieval/search`
+- 新增夹具与专项测试：
+  - `tests/fixtures/retrieval/gov-cn-search.json`
+  - `tests/task4-source-retrieval.check.mjs`
+
+### Verification Evidence
+
+| tested_at | tested_by | command | exit_code | evidence_path | verification_status |
+|---|---|---|---|---|---|
+| 2026-03-14T16:00:00+08:00 | agent | `node tests/task4-source-retrieval.check.mjs` | 0 | `logs/task4-source-retrieval-check.log` | `PASS` |
+| 2026-03-14T16:00:00+08:00 | agent | `node tests/task3-legalone.check.mjs` | 0 | `logs/task3-regression-after-task4.log` | `PASS` |
+| 2026-03-14T16:00:00+08:00 | agent | `node tests/task2-compliance.check.mjs` | 0 | `logs/task2-regression-after-task4.log` | `PASS` |
+
+### Commit Record
+
+| committed_at | command | commit_hash | note |
+|---|---|---|---|
+| 2026-03-14T16:07:35+08:00 | `git add -A` + `git commit -m "chore: checkpoint after phase3 task4 approval"` | `TBD` | Task 4 人工通过后的 checkpoint 提交 |
+
+### Notes
+
+- `fixture` 模式用于稳定离线测试，`live` / `hybrid` 模式保留真实在线检索入口
+- 在线检索目前只允许 `gov.cn` 白名单来源，并复用 Task 2 的来源策略、重试和访问日志链路
+
 # Final Notes
 
 - 当前已人工签核完成 `Task 1: Initialize Project`。
@@ -179,6 +223,15 @@
 - Task 3 has been implemented and verified; current status is `PENDING_MANUAL`
 - Next checkpoint is the manual sign-off for `Task 3: LegalOne-R1 Adapter with License Gate`
 # approval_record
+
+# approval_record
+
+- phase: 3-task-4
+- status: PASS(manual)
+- approved_by: Greg Huang
+- approved_at: 2026-03-14T16:07:35+08:00
+- approval_comment: user replied `通过`, Task 4 manual sign-off approved
+- comment: Task 4 人工签核通过
 
 # rejection_record
 

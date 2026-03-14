@@ -1,6 +1,7 @@
 import { getHealthPayload } from "../modules/system/health-service.mjs";
 import { renderHomePage } from "../modules/system/home-page-service.mjs";
 import { checkSourceAccess } from "../modules/retrieval/source-access-check-service.mjs";
+import { runRetrieval } from "../modules/retrieval/retrieval-orchestrator.mjs";
 import { generateLessonDraft } from "../modules/generation/legalone-generation-service.mjs";
 
 function writeJson(response, statusCode, payload) {
@@ -145,6 +146,47 @@ export function createRequestHandler({ rootDir }) {
           status: "error",
           reason: "generation_failed",
           message: error instanceof Error ? error.message : "unknown generation error",
+        });
+      }
+    }
+
+    if (method === "POST" && url.pathname === "/api/retrieval/search") {
+      let payload;
+      try {
+        payload = await readJsonBody(request);
+      } catch {
+        return writeJson(response, 400, {
+          status: "error",
+          reason: "invalid_json",
+          message: "request body must be valid JSON",
+        });
+      }
+
+      try {
+        const result = await runRetrieval({
+          rootDir,
+          topic: String(payload.topic ?? "").trim(),
+          mode: payload.mode,
+          allowOnlineSources: Boolean(payload.allowOnlineSources),
+        });
+
+        return writeJson(response, 200, {
+          status: "ok",
+          ...result,
+        });
+      } catch (error) {
+        if (error?.code === "invalid_retrieval_mode") {
+          return writeJson(response, 400, {
+            status: "error",
+            reason: error.code,
+            message: error.message,
+          });
+        }
+
+        return writeJson(response, 500, {
+          status: "error",
+          reason: "retrieval_failed",
+          message: error instanceof Error ? error.message : "unknown retrieval error",
         });
       }
     }
