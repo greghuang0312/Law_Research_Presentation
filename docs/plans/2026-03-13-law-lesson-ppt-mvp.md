@@ -69,7 +69,7 @@
   - `git add -A`
   - `git commit -m "<checkpoint message>"`
 - 提交命令统一使用：`scripts/commit-after-approval.ps1`
-- 每次提交后的短哈希必须记录到 `docs/complete/2026-03-13-law-lesson-ppt-mvp.md`
+- 每次提交后的短哈希必须记录到 `docs/complete/2026-03-13-law-lesson-ppt-completed.md`
 
 ## Task List
 
@@ -87,7 +87,7 @@
 **Expected Deliverables**
 - 本地一键启动脚本（或等价命令）
 - 健康检查接口与首页可访问
-- 初始化完成记录写入 `docs/complete/2026-03-13-law-lesson-ppt-mvp.md`
+- 初始化完成记录写入 `docs/complete/2026-03-13-law-lesson-ppt-completed.md`
 
 **Verification**
 - 启动命令返回成功（exit code 0）
@@ -230,7 +230,7 @@
 
 **Expected Deliverables**
 - `docs/testing-report.md`
-- `docs/complete/2026-03-13-law-lesson-ppt-mvp.md`
+- `docs/complete/2026-03-13-law-lesson-ppt-completed.md`
 - MVP 操作手册与回滚步骤
 
 **Verification**

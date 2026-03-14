@@ -12,4 +12,5 @@ Path base:
 | 3 | 人工确认通过后缺少统一的提交动作约束，可能导致阶段产物与代码状态不一致 | 固化规则：每次人工确认“通过”后必须立即执行 `git add` + `git commit`，并在执行记录中附提交哈希 | 高 | 是 | user suggestion |
 | 3 | `find-skills` 只覆盖工程类能力，未同步覆盖设计类能力，导致前端体验能力加载不完整 | 固化规则：每次前端任务的 skill discovery 必须同时执行“工程类 + 设计类”双通道检索，并在设计类仅保留一个主 skill（当前固定 frontend-design），结果记录到 STACK-SKILL-MAP | 高 | 是 | user suggestion |
 | 3 | 未完成项目缺少专用续做入口，且 plans / complete / 多文档恢复索引规则不完整，导致继续开发时需要重复扫全文 | 新增 `继续` 口令；明确 `docs/plans/*.md` 仅作开发文档、`docs/complete/*.md` 仅作完成文档；为 plans 与 complete 增加 `Resume Index`；仅在多开发文档时增加 `docs/development-index.md`，用 `任务序号 / 任务名称 / 任务所在文档名称` 完成跨文件定位 | 高 | 是 | user suggestion |
+| 3 | 完成文档文件名沿用功能或阶段词（如 `mvp`），难以从文件名直接识别“这是完成记录” | 完成文档统一追加 `-completed` 后缀，例如 `docs/complete/YYYY-MM-DD-<feature>-completed.md`；现有引用同步更新，提升辨识度与检索效率 | 中 | 是 | user suggestion |
 

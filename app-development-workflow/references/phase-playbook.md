@@ -115,7 +115,7 @@ All Phase 3 work must follow approved `PROJECT_ROOT/docs/plans/*.md`.
 ### Completion Record
 
 Each plan must have a paired:
-`PROJECT_ROOT/docs/complete/YYYY-MM-DD-<feature>.md`
+`PROJECT_ROOT/docs/complete/YYYY-MM-DD-<feature>-completed.md`
 
 ## In-Progress Continuation Path
 
@@ -202,7 +202,7 @@ The user may override that judgment.
 - `S`: execute as a bounded optimization task
 - `M`: create:
   - `PROJECT_ROOT/docs/plans/YYYY-MM-DD-optimization-<topic>.md`
-  - `PROJECT_ROOT/docs/complete/YYYY-MM-DD-optimization-<topic>.md`
+  - `PROJECT_ROOT/docs/complete/YYYY-MM-DD-optimization-<topic>-completed.md`
 - `L`: trigger `brainstorming`, and if needed supplement `architecture.md` before implementation
 
 ## Recommended Project Layout
@@ -219,7 +219,7 @@ PROJECT_ROOT/
 |   |-- plans/
 |   |   `-- YYYY-MM-DD-<feature>.md
 |   |-- complete/
-|   |   `-- YYYY-MM-DD-<feature>.md
+|   |   `-- YYYY-MM-DD-<feature>-completed.md
 |   `-- testing-report.md
 |-- logs/
 `-- ...
@@ -284,7 +284,7 @@ Do not store real secrets in `.env.example`.
 - `Task 1: Initialize Project`
 - subsequent feature tasks
 
-### `docs/complete/YYYY-MM-DD-<feature>.md`
+### `docs/complete/YYYY-MM-DD-<feature>-completed.md`
 
 - `Source Plan`
 - `TOC`
