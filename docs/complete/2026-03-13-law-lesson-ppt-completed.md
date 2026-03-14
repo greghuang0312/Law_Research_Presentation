@@ -296,6 +296,12 @@
 | 2026-03-14T16:00:00+08:00 | agent | `node tests/task3-legalone.check.mjs` | 0 | `interactive run` | `PASS` |
 | 2026-03-14T16:00:00+08:00 | agent | `node tests/task2-compliance.check.mjs` | 0 | `interactive run` | `PASS` |
 
+### Commit Record
+
+| committed_at | command | commit_hash | note |
+|---|---|---|---|
+| 2026-03-14T17:00:00+08:00 | `powershell -ExecutionPolicy Bypass -File .\scripts\commit-after-approval.ps1 -Message "chore: checkpoint after phase3 task6 approval"` | `bc5518f` | Task 6 人工通过后的 checkpoint 提交 |
+
 ### Notes
 
 - Current status: `PASS(manual)`
