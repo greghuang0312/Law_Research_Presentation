@@ -24,6 +24,7 @@
 | 2 | Compliance Baseline and Source Access Policy | `PASS(manual)` | [Task 2: Compliance Baseline and Source Access Policy](#task-2-compliance-baseline-and-source-access-policy) |
 | 3 | LegalOne-R1 Adapter with License Gate | `PASS(manual)` | [Task 3: LegalOne-R1 Adapter with License Gate](#task-3-legalone-r1-adapter-with-license-gate) |
 | 4 | Source Retrieval and Normalization | `PASS(manual)` | [Task 4: Source Retrieval and Normalization](#task-4-source-retrieval-and-normalization) |
+| 5 | Content Curation and Teaching Outline | `PASS(manual)` | [Task 5: Content Curation and Teaching Outline](#task-5-content-curation-and-teaching-outline) |
 
 # Task Execution Record
 
@@ -214,6 +215,47 @@
 - `fixture` 模式用于稳定离线测试，`live` / `hybrid` 模式保留真实在线检索入口
 - 在线检索目前只允许 `gov.cn` 白名单来源，并复用 Task 2 的来源策略、重试和访问日志链路
 
+## Task 5: Content Curation and Teaching Outline
+
+### Scope
+
+- Build deterministic `CaseMaterial[]` from stored retrieval results
+- Build deterministic `LawReference[]` from stored retrieval results
+- Build chapter-level `SummaryBlock[]` plus `slide_plan[]`
+- Support `difficulty`, `lesson_style`, `slide_density`, and `focus_points[]`
+
+### Implementation Summary
+
+- Added Task 5 fixture and test:
+  - `tests/fixtures/curation/source-items.json`
+  - `tests/task5-content-curation.check.mjs`
+- Added curation extraction and outline modules:
+  - `backend/app/modules/curation/case-material-extractor.mjs`
+  - `backend/app/modules/curation/law-reference-extractor.mjs`
+  - `backend/app/modules/curation/slide-plan-builder.mjs`
+  - `backend/app/modules/curation/summary-block-builder.mjs`
+  - `backend/app/modules/curation/curation-service.mjs`
+- Updated `backend/app/api/router.mjs`
+  - Added `POST /api/curation/build-outline`
+  - Added request validation for `trace_id`, `difficulty`, `lesson_style`, and `slide_density`
+- Updated `backend/app/modules/curation/README.md`
+
+### Verification Evidence
+
+| tested_at | tested_by | command | exit_code | evidence_path | verification_status |
+|---|---|---|---|---|---|
+| 2026-03-14T16:37:18.5946999+08:00 | agent | `node tests/task5-content-curation.check.mjs` | 0 | `logs/task5-content-curation-check.log` | `PASS` |
+| 2026-03-14T16:37:18.5946999+08:00 | agent | `node tests/task4-source-retrieval.check.mjs` | 0 | `logs/task4-regression-after-task5.log` | `PASS` |
+| 2026-03-14T16:37:18.5946999+08:00 | agent | `node tests/task3-legalone.check.mjs` | 0 | `logs/task3-regression-after-task5.log` | `PASS` |
+
+### Notes
+
+- Current status: `PASS(manual)`
+- Review focus:
+  - deterministic case vs law classification rules
+  - density differences between `high-school` and `exam-prep`
+  - response shape suitability for downstream PPT composition
+
 # Final Notes
 
 - 当前已人工签核完成 `Task 1: Initialize Project`。
@@ -222,6 +264,7 @@
 
 - Task 3 has been implemented and verified; current status is `PENDING_MANUAL`
 - Next checkpoint is the manual sign-off for `Task 3: LegalOne-R1 Adapter with License Gate`
+- Task 5 manual sign-off approved
 # approval_record
 
 # approval_record
@@ -232,6 +275,13 @@
 - approved_at: 2026-03-14T16:07:35+08:00
 - approval_comment: user replied `通过`, Task 4 manual sign-off approved
 - comment: Task 4 人工签核通过
+
+- phase: 3-task-5
+- status: PASS(manual)
+- approved_by: Greg Huang
+- approved_at: 2026-03-14T16:37:18.5946999+08:00
+- approval_comment: user replied `通过`, Task 5 manual sign-off approved
+- comment: Task 5 人工签核通过
 
 # rejection_record
 

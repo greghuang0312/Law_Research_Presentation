@@ -2,6 +2,7 @@ import { getHealthPayload } from "../modules/system/health-service.mjs";
 import { renderHomePage } from "../modules/system/home-page-service.mjs";
 import { checkSourceAccess } from "../modules/retrieval/source-access-check-service.mjs";
 import { runRetrieval } from "../modules/retrieval/retrieval-orchestrator.mjs";
+import { buildOutline } from "../modules/curation/curation-service.mjs";
 import { generateLessonDraft } from "../modules/generation/legalone-generation-service.mjs";
 
 function writeJson(response, statusCode, payload) {
@@ -187,6 +188,62 @@ export function createRequestHandler({ rootDir }) {
           status: "error",
           reason: "retrieval_failed",
           message: error instanceof Error ? error.message : "unknown retrieval error",
+        });
+      }
+    }
+
+    if (method === "POST" && url.pathname === "/api/curation/build-outline") {
+      let payload;
+      try {
+        payload = await readJsonBody(request);
+      } catch {
+        return writeJson(response, 400, {
+          status: "error",
+          reason: "invalid_json",
+          message: "request body must be valid JSON",
+        });
+      }
+
+      try {
+        const result = buildOutline({
+          rootDir,
+          topic: payload.topic,
+          traceId: payload.trace_id,
+          difficulty: payload.difficulty,
+          lessonStyle: payload.lesson_style,
+          slideDensity: payload.slide_density,
+          focusPoints: payload.focus_points,
+        });
+
+        return writeJson(response, 200, result);
+      } catch (error) {
+        if (
+          error?.code === "missing_topic" ||
+          error?.code === "missing_trace_id" ||
+          error?.code === "invalid_difficulty" ||
+          error?.code === "invalid_lesson_style" ||
+          error?.code === "invalid_slide_density" ||
+          error?.code === "trace_topic_mismatch"
+        ) {
+          return writeJson(response, 400, {
+            status: "error",
+            reason: error.code,
+            message: error.message,
+          });
+        }
+
+        if (error?.code === "trace_id_not_found") {
+          return writeJson(response, 404, {
+            status: "error",
+            reason: error.code,
+            message: error.message,
+          });
+        }
+
+        return writeJson(response, 500, {
+          status: "error",
+          reason: "curation_failed",
+          message: error instanceof Error ? error.message : "unknown curation error",
         });
       }
     }

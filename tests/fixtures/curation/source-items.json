@@ -1,0 +1,59 @@
+{
+  "trace_id": "trace-task5-fixture",
+  "topic": "行政处罚法",
+  "created_at": "2026-03-14T09:00:00.000Z",
+  "items": [
+    {
+      "id": "src-case-001",
+      "trace_id": "trace-task5-fixture",
+      "topic": "行政处罚法",
+      "title": "张某诉某市市场监督管理局行政处罚案",
+      "url": "https://example.test/cases/market-supervision-penalty",
+      "published_at": "2024-01-12",
+      "source_type": "case_record",
+      "source_host": "example.test",
+      "confidence": 0.96,
+      "retrieved_at": "2026-03-14T09:00:00.000Z",
+      "retrieval_mode": "fixture"
+    },
+    {
+      "id": "src-case-002",
+      "trace_id": "trace-task5-fixture",
+      "topic": "行政处罚法",
+      "title": "李某诉某区城市管理局罚款决定纠纷案",
+      "url": "https://example.test/cases/city-management-fine",
+      "published_at": "2023-11-08",
+      "source_type": "case_record",
+      "source_host": "example.test",
+      "confidence": 0.92,
+      "retrieved_at": "2026-03-14T09:00:00.000Z",
+      "retrieval_mode": "fixture"
+    },
+    {
+      "id": "src-law-001",
+      "trace_id": "trace-task5-fixture",
+      "topic": "行政处罚法",
+      "title": "行政处罚法第二十八条适用解读",
+      "url": "https://example.test/laws/article-28",
+      "published_at": "2024-02-20",
+      "source_type": "law_article",
+      "source_host": "example.test",
+      "confidence": 0.95,
+      "retrieved_at": "2026-03-14T09:00:00.000Z",
+      "retrieval_mode": "fixture"
+    },
+    {
+      "id": "src-law-002",
+      "trace_id": "trace-task5-fixture",
+      "topic": "行政处罚法",
+      "title": "行政处罚程序规范与陈述申辩权保障",
+      "url": "https://example.test/laws/procedure-defense",
+      "published_at": "2024-01-30",
+      "source_type": "policy_interpretation",
+      "source_host": "example.test",
+      "confidence": 0.9,
+      "retrieved_at": "2026-03-14T09:00:00.000Z",
+      "retrieval_mode": "fixture"
+    }
+  ]
+}
