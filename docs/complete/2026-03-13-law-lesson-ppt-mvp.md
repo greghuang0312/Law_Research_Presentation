@@ -2,6 +2,24 @@
 
 - `docs/plans/2026-03-13-law-lesson-ppt-mvp.md`
 
+## TOC
+
+- [Resume Index](#resume-index)
+- [Task Execution Record](#task-execution-record)
+- [Task 1: Initialize Project](#task-1-initialize-project)
+- [Task 2: Compliance Baseline and Source Access Policy](#task-2-compliance-baseline-and-source-access-policy)
+- [Final Notes](#final-notes)
+- [approval_record](#approval_record)
+- [rejection_record](#rejection_record)
+
+## Resume Index
+
+按人工签核通过顺序追加已完成任务。
+
+| 任务序号 | 任务名称 | 签核状态 | 定位章节 |
+|---|---|---|---|
+| 1 | Initialize Project | `PASS(manual)` | [Task 1: Initialize Project](#task-1-initialize-project) |
+
 # Task Execution Record
 
 ## Task 1: Initialize Project
@@ -60,7 +78,7 @@
 ### Notes
 
 - 在当前执行环境中，`start-dev.ps1` 返回成功且健康检查通过；后台进程在命令结束后不持续驻留，`stop-dev.ps1` 返回“PID file exists but process is not running.”。该行为不影响 Task 1 的结构和接口验收。
-- 人工复核阶段提出“前端技术栈需明确为 React + Vite + TypeScript”，已完成在审修订并合入当前任务结果。
+- 人工复核阶段提出“前端技术栈需明确为 React + Vite + TypeScript”，已完成审修订并合入当前任务结果。
 - 人工复核阶段进一步提出“前后端采用成熟架构”，已完成前后端分层目录与入口拆分。
 
 ## Task 2: Compliance Baseline and Source Access Policy
@@ -99,13 +117,14 @@
 ### Notes
 
 - 人工复核追加要求：`find-skills` 同时覆盖工程类与设计类。
-- 根据用户确认，设计类 skill 已收敛为仅 `frontend-design`；`ui-design` 与 `ui-ux-pro-max` 已从项目有效映射中移除。
+- 根据用户确认，设计类 skill 已收敛为 `frontend-design`；`ui-design` 与 `ui-ux-pro-max` 已从项目有效映射中移除。
 - `STACK-SKILL-MAP` 与计划文档已同步更新。
 
 # Final Notes
 
-- 当前已完成 `Task 1: Initialize Project` 与 `Task 2: Compliance Baseline and Source Access Policy`。
-- 下一个任务为 `Task 3: LegalOne-R1 Adapter with License Gate`，待人工确认后执行。
+- 当前已人工签核完成 `Task 1: Initialize Project`。
+- `Task 2: Compliance Baseline and Source Access Policy` 已开发并完成验证，但当前仍为 `PENDING_MANUAL`，尚未写入已完成任务索引。
+- 下一个待推进节点是 `Task 2` 的人工签核；签核通过后再进入 `Task 3: LegalOne-R1 Adapter with License Gate`。
 
 # approval_record
 
@@ -126,7 +145,7 @@
 - phase: 3-task-1
 - issue_type: UI / interaction
 - requested_change: 前端技术栈改为 React + Vite + TypeScript
-- action_taken: 已将 frontend 升级为 React+Vite+TS 工程骨架，并更新 README 与执行记录
+- action_taken: 已将 frontend 升级为 React + Vite + TypeScript 工程骨架，并更新 README 与执行记录
 - retest_or_recheck: `node tests/task1-initialize.check.mjs` 复测通过，待用户重新签核
 
 - phase: 3-task-1

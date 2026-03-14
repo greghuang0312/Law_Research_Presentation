@@ -6,6 +6,7 @@ Use these literals exactly:
 - Trigger word: `你好`
 - New-project route word: `新建`
 - Optimization route word: `优化`
+- Continue route word: `继续`
 - Sign-off words: `通过`, `不通过`
 - Task start word: `开始`
 - Required fields: `Required Skills (Method)`, `Required Skills (Stack)`, `verification_status`
@@ -35,6 +36,7 @@ Use this exact welcome text:
 你现在可以这样开始：
 - 回复“新建”：开始一个新项目
 - 回复“优化”：对一个已完成项目继续修改或优化
+- 回复“继续”：继续一个未完成项目的开发
 ```
 
 ## Entry Commands
@@ -42,6 +44,7 @@ Use this exact welcome text:
 - `你好`: show the welcome text and route options
 - `新建`: enter the new-project workflow and start from Phase 1
 - `优化`: enter the post-delivery optimization workflow
+- `继续`: resume an unfinished in-progress project
 
 ## Optimization Mode Welcome
 
@@ -55,6 +58,21 @@ Use this exact welcome text:
 1. 当前项目是做什么的
 2. 你现在遇到的具体问题是什么
 3. 你希望最终改成什么样
+```
+
+## Continue Mode Welcome
+
+```text
+已进入继续模式。
+
+我会先读取当前项目的完成文档与开发文档索引，恢复最近开发进度，再只展开下一个待开发任务所对应的计划内容。
+默认恢复顺序如下：
+1. 读取 `docs/complete/*.md` 中的 `Resume Index`
+2. 如果存在多个开发文档，再读取 `docs/development-index.md`
+3. 读取目标 `docs/plans/*.md` 中的 `Resume Index`
+4. 只展开下一个未完成任务对应章节
+
+如果你准备好了，请回复：开始
 ```
 
 ## Review Modes
@@ -255,6 +273,27 @@ Applicable when the project has already been delivered and later usage produces 
    - `S`: handle directly as a bounded optimization task
    - `M`: create a new pair of documents under `docs/plans/` and `docs/complete/`
    - `L`: trigger `brainstorming`, and if needed return to architecture supplementation before execution
+
+### C. In-Progress Continuation
+
+Applicable when the project is not yet fully developed and the user replies `继续`.
+
+1. Confirm that development artifacts are organized under `docs/plans/` and execution artifacts are organized under `docs/complete/`.
+2. Treat `docs/plans/*.md` as development documents only. They record approved task framework and execution guidance, and must not be used as completion records.
+3. Treat `docs/complete/*.md` as completion documents only. They record completed tasks, verification evidence, commit hashes, deviations, and approval status.
+4. Each `docs/plans/*.md` should include both a TOC and a file-level `Resume Index`. The `Resume Index` is used to expose that document's task framework for fast task location.
+5. Each `docs/complete/*.md` should include both a TOC and a file-level `Resume Index`. Append one entry to that `Resume Index` every time a task is completed.
+6. Create `docs/development-index.md` only when there are multiple development documents under `docs/plans/`. The file title must be `开发文档索引`, and it must contain only these columns:
+   - `任务序号`
+   - `任务名称`
+   - `任务所在文档名称`
+7. During recovery, read the completed task numbers from the available `docs/complete/*.md` `Resume Index` sections and determine the latest completed task number for the project.
+8. Determine the next task:
+   - if no task has been completed, start from the smallest task number in the target plan or in `docs/development-index.md`
+   - if multiple development documents exist, use `docs/development-index.md` to locate the development document for the next task number
+   - then use the target `docs/plans/*.md` `Resume Index` to jump to the corresponding task section
+9. Read only the minimum sections needed for the next task instead of rescanning full plans.
+10. If the indexes are missing, outdated, or inconsistent with the body content, repair them first or ask the user whether to repair them before continuing.
 
 ## Rollback SOP
 

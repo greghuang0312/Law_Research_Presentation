@@ -1,6 +1,6 @@
 ﻿---
 name: app-development-workflow
-description: Use when user input is `你好`, then route to internal branches `新建` or `优化`; also use when guiding end-to-end app delivery through a gated six-phase workflow that requires human approval, test evidence, phase-specific method skills, and project-specific stack-skill coordination.
+description: Use when user input is `你好`, then route to internal branches `新建`, `优化`, or `继续`; also use when guiding end-to-end app delivery through a gated six-phase workflow that requires human approval, test evidence, phase-specific method skills, and project-specific stack-skill coordination.
 ---
 
 # App Development Workflow
@@ -67,6 +67,10 @@ When normalized user input is exactly `新建`:
 When normalized user input is exactly `优化`:
 1. Follow `Optimization Mode Welcome` in `references/protocols.md`
 2. Start the post-delivery optimization path defined by `references/phase-playbook.md`
+
+When normalized user input is exactly `继续`:
+1. Follow `Continue Mode Welcome` in `references/protocols.md`
+2. Start the in-progress continuation path defined by `references/phase-playbook.md` and `references/protocols.md`
 
 ## Phase Workflow
 

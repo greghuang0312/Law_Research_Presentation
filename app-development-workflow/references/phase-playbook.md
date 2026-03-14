@@ -117,6 +117,28 @@ All Phase 3 work must follow approved `PROJECT_ROOT/docs/plans/*.md`.
 Each plan must have a paired:
 `PROJECT_ROOT/docs/complete/YYYY-MM-DD-<feature>.md`
 
+## In-Progress Continuation Path
+
+Use this path when the project has approved plans but development is unfinished and a later session must resume execution.
+
+### Goal
+
+Restore the next unfinished task with minimal context loading and continue execution from the correct plan section.
+
+### Document Rules
+
+- `PROJECT_ROOT/docs/plans/*.md` are development documents. They contain approved implementation plans, task framework, TOC, and a file-level `Resume Index`.
+- `PROJECT_ROOT/docs/complete/*.md` are completion documents. They contain only completed tasks, verification evidence, commit records, deviations, approvals, TOC, and a file-level `Resume Index`.
+- Create `PROJECT_ROOT/docs/development-index.md` only when multiple development documents exist. Its title must be `开发文档索引`, and its columns must be `任务序号`, `任务名称`, `任务所在文档名称`.
+
+### Recovery Rule
+
+1. Read completed task numbers from the available `docs/complete/*.md` `Resume Index` sections.
+2. Determine the next task number from that completion state.
+3. If multiple development documents exist, use `docs/development-index.md` to locate the target plan file for that next task.
+4. Use the target `docs/plans/*.md` `Resume Index` to jump directly to the matching task section.
+5. Read only the minimum task content needed for resuming work.
+
 ## Phase 4
 
 ### Goal
@@ -187,19 +209,20 @@ The user may override that judgment.
 
 ```text
 PROJECT_ROOT/
-├─ README.md
-├─ .gitignore
-├─ .env.example
-├─ docs/
-│  ├─ requirements.md
-│  ├─ architecture.md
-│  ├─ plans/
-│  │  └─ YYYY-MM-DD-<feature>.md
-│  ├─ complete/
-│  │  └─ YYYY-MM-DD-<feature>.md
-│  └─ testing-report.md
-├─ logs/
-└─ ...
+|-- README.md
+|-- .gitignore
+|-- .env.example
+|-- docs/
+|   |-- requirements.md
+|   |-- architecture.md
+|   |-- development-index.md   # optional, only when multiple plan docs exist
+|   |-- plans/
+|   |   `-- YYYY-MM-DD-<feature>.md
+|   |-- complete/
+|   |   `-- YYYY-MM-DD-<feature>.md
+|   `-- testing-report.md
+|-- logs/
+`-- ...
 ```
 
 ## Repository Hygiene
@@ -253,6 +276,8 @@ Do not store real secrets in `.env.example`.
 
 ### `docs/plans/YYYY-MM-DD-<feature>.md`
 
+- `TOC`
+- `Resume Index`
 - `Goal`
 - `Architecture Context`
 - `Tech Stack`
@@ -262,7 +287,18 @@ Do not store real secrets in `.env.example`.
 ### `docs/complete/YYYY-MM-DD-<feature>.md`
 
 - `Source Plan`
+- `TOC`
+- `Resume Index`
 - task-by-task execution record
 - verification evidence
 - final notes
 - `approval_record`
+
+### `docs/development-index.md`
+
+Create this file only when there are multiple plan documents.
+
+- title: `开发文档索引`
+- `任务序号`
+- `任务名称`
+- `任务所在文档名称`

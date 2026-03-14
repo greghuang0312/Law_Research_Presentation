@@ -1,6 +1,41 @@
-﻿# 法律课程备课自动化 MVP Implementation Plan
+# 法律课程备课自动化 MVP Implementation Plan
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
+
+## TOC
+
+- [Resume Index](#resume-index)
+- [Architecture Context](#architecture-context)
+- [Milestones](#milestones)
+- [Commit Governance](#commit-governance)
+- [Task List](#task-list)
+- [Task 1: Initialize Project](#task-1-initialize-project)
+- [Task 2: Compliance Baseline and Source Access Policy](#task-2-compliance-baseline-and-source-access-policy)
+- [Task 3: LegalOne-R1 Adapter with License Gate](#task-3-legalone-r1-adapter-with-license-gate)
+- [Task 4: Source Retrieval and Normalization](#task-4-source-retrieval-and-normalization)
+- [Task 5: Content Curation and Teaching Outline](#task-5-content-curation-and-teaching-outline)
+- [Task 6: PPT Composition Pipeline](#task-6-ppt-composition-pipeline)
+- [Task 7: Citation and Quality Gate](#task-7-citation-and-quality-gate)
+- [Task 8: End-to-End Validation and Handoff](#task-8-end-to-end-validation-and-handoff)
+- [Risks and Rollback Notes](#risks-and-rollback-notes)
+- [Skill Discovery Update (Phase 2 Revision)](#skill-discovery-update-phase-2-revision)
+- [Skill Discovery Update (Phase 3 Revision)](#skill-discovery-update-phase-3-revision)
+- [Post-Phase TODO (User Confirmed)](#post-phase-todo-user-confirmed)
+- [approval_record](#approval_record)
+- [rejection_record](#rejection_record)
+
+## Resume Index
+
+| 任务序号 | 任务名称 | 定位章节 |
+|---|---|---|
+| 1 | Initialize Project | [Task 1: Initialize Project](#task-1-initialize-project) |
+| 2 | Compliance Baseline and Source Access Policy | [Task 2: Compliance Baseline and Source Access Policy](#task-2-compliance-baseline-and-source-access-policy) |
+| 3 | LegalOne-R1 Adapter with License Gate | [Task 3: LegalOne-R1 Adapter with License Gate](#task-3-legalone-r1-adapter-with-license-gate) |
+| 4 | Source Retrieval and Normalization | [Task 4: Source Retrieval and Normalization](#task-4-source-retrieval-and-normalization) |
+| 5 | Content Curation and Teaching Outline | [Task 5: Content Curation and Teaching Outline](#task-5-content-curation-and-teaching-outline) |
+| 6 | PPT Composition Pipeline | [Task 6: PPT Composition Pipeline](#task-6-ppt-composition-pipeline) |
+| 7 | Citation and Quality Gate | [Task 7: Citation and Quality Gate](#task-7-citation-and-quality-gate) |
+| 8 | End-to-End Validation and Handoff | [Task 8: End-to-End Validation and Handoff](#task-8-end-to-end-validation-and-handoff) |
 
 **Goal:** 交付一个本地网页应用 MVP，完成“知识点输入 -> 合规检索 -> 内容归纳 -> 接近最终版 PPT 生成”闭环，并满足教师手工修改量不超过 20%。
 
@@ -245,4 +280,3 @@
 - requested_change: 人工签批用户名改为 Greg Huang；网页端开发缺少相应 skills
 - action_taken: 审批用户名已统一为 Greg Huang；已通过 find-skills 检索并安装 `web-dev` 与 `playwright`，并更新任务技能映射
 - retest_or_recheck: 计划与 STACK-SKILL-MAP 已更新，待用户重新签核
-
